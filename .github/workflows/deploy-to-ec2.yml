@@ -20,8 +20,6 @@ jobs:
 
       - name: Initialize SSH
         run: |
-          mkdir -p ~/.ssh
-          touch ~/.ssh/known_hosts
           ssh-keyscan ec2-34-239-105-198.compute-1.amazonaws.com >> ~/.ssh/known_hosts 
 
       - name: Deploy code to EC2
