@@ -1,12 +1,13 @@
 name: Deploy Code to EC2
 
+workflow-dispatch:
 on:
   push:
     branches:
       - main  
 jobs:
   deploy-ec2:
-    runs-on: [self-hosted, Standard]
+    runs-on: [ubuntu-latest]
 
     steps:
       - name: Checkout code
