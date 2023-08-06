@@ -1,7 +1,7 @@
 name: Deploy Code to EC2
 
-workflow-dispatch:
 on:
+  workflow-dispatch:
   push:
     branches:
       - main  
