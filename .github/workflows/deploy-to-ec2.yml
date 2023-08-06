@@ -22,7 +22,8 @@ jobs:
       - name: Set up key-pair file
         run: |
           echo "${{ secrets.EC2_KEY_PAIR }}" > student.pem
-          chmod 400 student.pem
+          chmod +rwx student.pem
+          ls -l
 
       - name: Deploy code to EC2
         run: |
