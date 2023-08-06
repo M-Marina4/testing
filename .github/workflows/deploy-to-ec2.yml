@@ -1,0 +1,36 @@
+name: Deploy Code to EC2
+
+on:
+  push:
+    branches:
+      - main  
+jobs:
+  deploy-ec2:
+    runs-on: [self-hosted, Standard]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Isntall AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+          aws --version
+
+      - name: Configure AWS CLI
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.ACCESS_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.ACCESS_SECRET }}
+          aws configure set default.region us-east-1 
+
+      - name: Set up key-pair file
+        run: |
+          echo "${{ secrets.EC2_KEY_PAIR }}" > student.pem
+          chmod 400 student.pem
+
+      - name: Deploy code to EC2
+        run: |
+          aws scp -i "student.pem" ./codes ubuntu@ec2-34-239-105-198.compute-1.amazonaws.com:/home/ubuntu/
+

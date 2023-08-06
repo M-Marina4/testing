@@ -1,9 +1,0 @@
-[Unit]
-Description=Update massege system
-After=network.target
-
-[Service]
-ExecStart=/bin/bash /home/climatenet/Desktop/auto_update.sh
-
-[Install]
-WantedBy=default.target
