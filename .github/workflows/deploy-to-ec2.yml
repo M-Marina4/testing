@@ -19,13 +19,8 @@ jobs:
           aws configure set aws_secret_access_key ${{ secrets.ACCESS_SECRET }}
           aws configure set default.region us-east-1 
 
-      - name: Set up key-pair file
-        run: |
-          echo "${{ secrets.EC2_KEY_PAIR }}" > student.pem
-          chmod +rwx student.pem
-          ls -l
-
       - name: Deploy code to EC2
         run: |
+          echo "${{ secrets.EC2_KEY_PAIR }}" > student.pem && chmod +rwx student.pem
           scp -i "student.pem" ./codes ubuntu@ec2-34-239-105-198.compute-1.amazonaws.com:/home/ubuntu/
 
